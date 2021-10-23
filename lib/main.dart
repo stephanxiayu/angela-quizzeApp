@@ -1,3 +1,4 @@
+import 'package:angela4_quizze/video.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'quizzbrain.dart';
@@ -38,13 +39,41 @@ class _QuizPageState extends State<QuizPage> {
 
     setState(() {
       if (quizBrain.isFinished() == true) {
-        Alert(
-          context: context,
-          title: 'Finished!',
-          desc: 'You\'ve reached the end of the quiz.',
-        ).show();
-      quizBrain.reset();
-        scoreKeeper = [];
+     Alert(
+      context: context,
+      type: AlertType.warning,
+      title: "Glückwunsch",
+      desc: "Du hast dir ein Video Verdient",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Video",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => Video()),
+  );
+}),
+        
+        DialogButton(
+          child: Text(
+            "Start Agin",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        onPressed:  (){
+            Navigator.of(context).pop();
+        quizBrain.reset();
+
+
+        scoreKeeper = [];})
+        
+         
+        
+      ],
+    ).show();
+      scoreKeeper = [];
       } else {
         if (userPickedAnswer == correctAnswer) {
           scoreKeeper.add(Icon(
